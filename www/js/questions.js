@@ -40,6 +40,7 @@ var tests = {
 var question_page={
 		create : function(){
 			var pageDiv=$('<div data-role="page" id="question-page"></div>');
+			//var pageDiv=$('<div id="question-page"></div>');
 			var headerDiv=
 				'<div data-role="header" data-position="fixed" >'+
 					'<h1 style="margin-left:0;margin-right:0;white-space: nowrap;overflow: visible;">Pregunta</h1>'+
@@ -47,13 +48,15 @@ var question_page={
 			var contentDiv=
 				'<div data-role="content">'+
 					'<form id="question-form">'+
-					'<fieldset data-role="controlgroup" data-iconpos="right">'+
 						'<h2 name="question" id="question"></h2>'+
 						'<button name="question-buttonA" id="question-buttonA" value="0"></button>'+
+						'<label for="question-buttonA" id="question-labelA"></label>'+
 						'<button name="question-buttonB" id="question-buttonB" value="1"></button>'+
+						'<label for="question-buttonB" id="question-labelB"></label>'+
 						'<button name="question-buttonC" id="question-buttonC" value="2"></button>'+
+						'<label for="question-buttonC" id="question-labelC"></label>'+
 						'<button name="question-buttonD" id="question-buttonD" value="3"></button>'+
-					'</fieldset>'+
+						'<label for="question-buttonD" id="question-labelD"></label>'+
 					'</form>';
 			pageDiv.append(headerDiv,contentDiv); 
 			return(pageDiv);
@@ -62,10 +65,11 @@ var question_page={
 		load : function(i){
 			alert("load");
 			$("#question").text("QUESTION: "+tests.test[i].question);
-			
-			$("button[id|='question-button']").each(
+			alert("antes del each");
+			$("label[id|='question-label']").each(
 	     			function(index) {     				
-	     				$(this).text(tests.test[i].resp[index]);     				
+	     				$(this).text(tests.test[i].resp[index]);
+	     				alert(tests.test[i].resp[index]);
 	    		    }
 	     	);
 		}
