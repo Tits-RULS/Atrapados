@@ -1,3 +1,5 @@
+//Fichero para cargar página de preguntas
+
 var tests = {
 	login: null,
 	total: 3,
@@ -36,33 +38,32 @@ var tests = {
 };
 
 var question_page={
-		create : function(i){
-			var pageDiv=$('<div data-role="page" id="question_page-'+i+'"></div>');
+		create : function(){
+			var pageDiv=$('<div data-role="page" id="question-page"></div>');
 			var headerDiv=
 				'<div data-role="header" data-position="fixed" >'+
-					'<h1 style="margin-left:0;margin-right:0;white-space: nowrap;overflow: visible;">Pregunta'+i+'</h1>'+
+					'<h1 style="margin-left:0;margin-right:0;white-space: nowrap;overflow: visible;">Pregunta</h1>'+
 				'</div>';
 			var contentDiv=
 				'<div data-role="content">'+
-					'<form id="question-'+i+'">'+
+					'<form id="question-form">'+
 					'<fieldset data-role="controlgroup" data-iconpos="right">'+
-						'<legend id="question-'+i+'"></legend>'+
-						'<button id="question-'+i+'-buttonA" value="0"></button>'+
-						'<button id="question-'+i+'-buttonB" value="1"></button>'+
-						'<button id="question-'+i+'-buttonC" value="2"></button>'+
-						'<button id="question-'+i+'-buttonD" value="3"></button>'+
+						'<h2 name="question" id="question"></h2>'+
+						'<button name="question-buttonA" id="question-buttonA" value="0"></button>'+
+						'<button name="question-buttonB" id="question-buttonB" value="1"></button>'+
+						'<button name="question-buttonC" id="question-buttonC" value="2"></button>'+
+						'<button name="question-buttonD" id="question-buttonD" value="3"></button>'+
 					'</fieldset>'+
-					'</form>'
-				;
-			
-			pageDiv.append(headerDiv,contentDiv);
+					'</form>';
+			pageDiv.append(headerDiv,contentDiv); 
 			return(pageDiv);
 		},
 		 
 		load : function(i){
-			$("#question-"+i).text("QUESTION"+i+": "+tests.test[i].question);
+			alert("load");
+			$("#question").text("QUESTION: "+tests.test[i].question);
 			
-			$("button[id|='question-"+i+"-button']").each(
+			$("button[id|='question-button']").each(
 	     			function(index) {     				
 	     				$(this).text(tests.test[i].resp[index]);     				
 	    		    }
