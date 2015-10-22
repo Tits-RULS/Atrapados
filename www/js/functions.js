@@ -1,24 +1,31 @@
 
+var correct;
+
 function next(){
-	var i=Math.floor((Math.random()*3)+1);
-	//var pageDiv=question_page.create();
-	//$("body").append(pageDiv);
-	//question_page.load(i)
-	alert("antes de window");
+	var i=Math.floor((Math.random()*3));
 	document.location.href = "#question-page";
-	alert("tras window");
 	load(i);
-	alert("tras el load");
 }
 
 function load(i){
-	alert("load");
-	$("#question").text(tests.test[i].question);
-	alert("antes del each");
+	$("#question").replaceWith("<h2 id='question'>"+tests.test[i].question+"</h2>");
 	$("button[id|='question-button']").each(
- 			function(index) {     				
- 				$(this).text(tests.test[i].resp[index]);
- 				alert(tests.test[i].resp[index]);
+ 			function(index) {
+ 				$(this).replaceWith("<button id='question-button-"+index+"' value='"+index+"' onclick='result(this)'>"+tests.test[i].resp[index]+"</button>");
 		    }
  	);
+	correct=tests.test[i].correct;
+}
+
+function result(elem){
+	var val=$(elem).val();
+	if(val==correct){
+		alert("CORECTO");
+		document.location.href = "#start-page"
+	}
+	else{
+		alert("ERROR");
+	}
+		
+	
 }
