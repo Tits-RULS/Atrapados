@@ -8,20 +8,23 @@ function next(){
 }
 
 function load(i){
-	$("#question").replaceWith("<h2 id='question'>"+tests.test[i].question+"</h2>");
+	$("#question").text(tests.test[i].question);
 	$("button[id|='question-button']").each(
  			function(index) {
- 				$(this).replaceWith("<button id='question-button-"+index+"' value='"+index+"' onclick='result(this)'>"+tests.test[i].resp[index]+"</button>");
-		    }
+ 				$(this).text(tests.test[i].resp[index]);
+ 			}
  	);
 	correct=tests.test[i].correct;
+	$("#timer").timer();
 }
 
 function result(elem){
 	var val=$(elem).val();
 	if(val==correct){
-		alert("CORECTO");
-		document.location.href = "#start-page"
+		document.location.href = "#start-page";
+		var time=$("#timer").data('seconds');
+		alert("CORRECTO "+time+" segundos");
+		$("#timer").timer('remove');
 	}
 	else{
 		alert("ERROR");
