@@ -28,7 +28,13 @@ function result(elem){
 	}
 	else{
 		alert("ERROR");
-	}
-		
-	
+	}	
+}
+
+function login(){
+	var name=$("#login-name").val();
+	var pss=$("#login-pass").val();
+	window.localStorage.setItem('name',name);
+	window.localStorage.setItem('pass',pss);
+	document.location.href = "#start-page";
 }

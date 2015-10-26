@@ -9,16 +9,18 @@
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
-        <title>Hello World</title>
+        <link rel="stylesheet" type="text/css" href="css/index.css" /> 
+        <title>ATRAPADOS</title>
     </head>
     <body>
-        <!--  <div class="app">
-            <h1>Apache Cordova application powered by Eclipse Thym</h1>
-            <div id="deviceready" class="blink">
-                <button type="button" onclick="next()">play</button>
-            </div>
-        </div>-->
-        <!--  <div data-role="page" id="question_page"></div>-->
+		<div data-role="page" id="login-page">
+			Nombre:<br>
+			<input type='text' id='login-name'>
+			<br> Contraseña:<br>
+			<input type='text' id='login-pass'>
+			<br>
+			<button onclick='login()'>Acceder</button>
+		</div>   
         <div data-role="page" id="start-page">
         <button type="button" onclick="next()">play</button>
         </div>
