@@ -1,38 +1,68 @@
 //Fichero para cargar página de preguntas
-
+//Temas: Conocimiento del medio, matematica, lengua, plastica, musica, gimnasia
 var tests = {
 	login: null,
-	total: 3,
+	total: 6,
 	test: [
-	       {
-	    	   	question: "Bla bla bla?",
+	       {//Conocimiento del medio
+	    	   	question: "¿Cuál es el símbolo químico del Oro?",
 	    	   	resp: [
-	    	          "Response 0-A",
-	    	          "Response 0-B",
-	    		      "Response 0-C",
-	    		      "Response 0-D"
+	    	          "Pt",
+	    	          "O",
+	    		      "Au",
+	    		      "Gd"
+	    		      ],
+	    		correct: "2",
+	       },
+	       {//Matemática
+	    	   	question: "¿Cuanto es 1 + 2 x 3?",
+	    	   	resp: [
+	    	          "6",
+	    	          "7",
+	    		      "8",
+	    		      "9"
+	    		      ],
+	    		correct: "1",	      
+	       },
+	       {//Lengua
+	    	   	question: "¿Qué palabra es esdrújula?",
+	    	   	resp: [
+	    	          "Ácido",
+	    	          "Colegio",
+	    		      "Gelatina",
+	    		      "Camión"
+	    		      ],
+	    		correct: "0",
+	       },
+	       {//Plástica
+	    	   	question: "¿Que color sale si mezclas Rojo y Azul?",
+	    	   	resp: [
+	    	          "Amarillo",
+	    	          "Naranja",
+	    		      "Verde",
+	    		      "Morado"
+	    		      ],
+	    		correct: "3",
+	       },
+	       {//Música
+	    	   	question: "¿Qué nota se encuentra entre Fa y Mi?",
+	    	   	resp: [
+	    	          "Re",
+	    	          "Sol",
+	    		      "Do",
+	    		      "La"
 	    		      ],
 	    		correct: "1",
 	       },
-	       {
-	    	   	question: "Ble ble ble?",
+	       {//Gimnasia
+	    	   	question: "¿Qué necesitas para jugar a Tenis?",
 	    	   	resp: [
-	    	          "Response 1-A",
-	    	          "Response 1-B",
-	    		      "Response 1-C",
-	    		      "Response 1-D"
+	    	          "Bate",
+	    	          "Balón",
+	    		      "Raqueta",
+	    		      "Espada"
 	    		      ],
-	    		correct: "3",	      
-	       },
-	       {
-	    	   	question: "Bli bli bli?",
-	    	   	resp: [
-	    	          "Response 2-A",
-	    	          "Response 2-B",
-	    		      "Response 2-C",
-	    		      "Response 2-D"
-	    		      ],
-	    		correct: "0",
+	    		correct: "2",
 	       }
 	 ]
 }
