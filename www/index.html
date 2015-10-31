@@ -23,7 +23,7 @@
         	margin-right: 0;
         	font-weight: bold;        	
         }
-        #start-page{
+        #level-page{
         	background-image: url("img/building.jpg");
         	background-repeat: no-repeat;
         	background-position: center center;
@@ -41,6 +41,8 @@
         </style>
     </head>
     <body>
+    
+    
 		<div data-role="page" id="login-page">
 			Nombre:<br>
 			<input type='text' id='login-name'>
@@ -48,10 +50,27 @@
 			<input type='text' id='login-pass'>
 			<br>
 			<button onclick='login()'>Acceder</button>
-		</div>   
-        <div data-role="page" id="start-page">
-        	<input id="start-button" type="image" src="img/comenzar.png" width="30%" height="auto" onclick="next()">
+		</div> 
+		
+		<div data-role="page" id="start-page">
+			<button id="duel-button" onclick="toDuel()">Duelo</button>
+			<button id="history-button" onclick="toHistory()">Historia</button>
+		</div>
+		
+        <div data-role="page" id="level-page">
+        	<h2 id="level-h"></h2>
+        	<input id="start-button" type="image" src="img/comenzar.png" width="30%" height="auto" onclick="toSubject()">
         </div>
+        
+        <div data-role="page" id="subject-page">
+        	<button id="subject-0-button" value="0" onclick="next(this)">Conocimiento del medio</button>
+        	<button id="subject-1-button" value="1" onclick="next(this)">Matemáticas</button>
+        	<button id="subject-2-button" value="2" onclick="next(this)">Lengua</button>
+        	<button id="subject-3-button" value="3" onclick="next(this)">Plástica</button>
+        	<button id="subject-4-button" value="4" onclick="next(this)">Música</button>
+        	<button id="subject-5-button" value="5" onclick="next(this)">Gimnasia</button>
+        </div>
+        
         <div data-role="page" id="question-page" style="border:2">
         	<h1 id="question_title"> PREGUNTA</h1>
 			<h2 id="question"></h2>
@@ -74,6 +93,10 @@
 				  </tr>
 			</table> 			
 			<div id="timer" style="display: none"></div>
+        </div>
+        
+        <div data-role="page" id="duel-page">
+        	<h1>NO HAY DUELOS</h1>
         </div>
         
         <script type="text/javascript" src="cordova.js"></script>

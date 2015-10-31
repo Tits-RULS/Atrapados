@@ -3,6 +3,9 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+        if(localStorage.getItem("name")!=null){
+    		document.location.href = "#start-page";
+    	}
     },
     // Bind Event Listeners
     //
@@ -10,21 +13,19 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        if(localStorage.getItem("name")!=null){
-    		document.location.href = "#start-page";
-    	}
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-        
+        //registrar el listener
+    	document.addEventListener('backbutton',function(){
+    		//función para gestionar el boton de back
+    		navigator.app.backHistory();
+    		},false);        
     },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {    	
-    }
+
 };
 
 app.initialize();
