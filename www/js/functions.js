@@ -72,17 +72,33 @@ function result(elem){
 			window.localStorage.setItem('punt',punt);
 			var lvl = window.localStorage.getItem('lvl');
 			switch(lvl){
-			case 1:
+			case '1':
 				window.localStorage.setItem('checkpunt',punt);
 				break;
-			case 3:
+			case '3':
 				window.localStorage.setItem('checkpunt',punt);
 				break;
-			case 7:
+			case '7':
 				window.localStorage.setItem('checkpunt',punt);
 				break;
-			case 10:
-				//paso a diploma
+			case '10':
+				var name = window.localStorage.getItem('name');
+				$("#congrat-name").text("Enhorabuena "+name);
+				var punt = window.localStorage.getItem('punt');
+				$("#congrat-punt").text("Tu puntuación es: "+punt);
+				var max = window.localStorage.getItem('maxpunt');
+				//comprobar máxima puntuación
+				if(max<punt){
+					max=punt;
+					window.localStorage.setItem('maxpunt',punt);
+				}
+				$("#congrat-max").text("Tu puntuación máxima: "+max);
+				//reiniciar la historia
+				window.localStorage.setItem('punt',0);
+				window.localStorage.setItem('lvl',1);
+				window.localStorage.setItem('checkpunt',0);
+				document.location.href = "#congrat-page";
+				return 1;
 				break;
 			}
 			lvl++;
@@ -98,8 +114,43 @@ function result(elem){
 	else{
 		//erroneo
 		if(error==2){
+			$("#timer").timer('remove');
 			alert("Todos los errores consumidos");
-			document.location.href='#level-page';
+			//mandar a checkpoint
+			var lvl = window.localStorage.getItem('lvl');
+			switch(lvl){
+			case '3':
+				var check = window.localStorage.getItem('checkpunt');
+				window.localStorage.setItem('punt',check);
+				window.localStorage.setItem('lvl',2);
+				break;
+			case '5':
+				var check = window.localStorage.getItem('checkpunt');
+				window.localStorage.setItem('punt',check);
+				window.localStorage.setItem('lvl',4);
+				break;
+			case '6':
+				var check = window.localStorage.getItem('checkpunt');
+				window.localStorage.setItem('punt',check);
+				window.localStorage.setItem('lvl',4);
+				break;
+			case '7':
+				var check = window.localStorage.getItem('checkpunt');
+				window.localStorage.setItem('punt',check);
+				window.localStorage.setItem('lvl',4);
+				break;
+			case '9':
+				var check = window.localStorage.getItem('checkpunt');
+				window.localStorage.setItem('punt',check);
+				window.localStorage.setItem('lvl',8);
+				break;
+			case '10':
+				var check = window.localStorage.getItem('checkpunt');
+				window.localStorage.setItem('punt',check);
+				window.localStorage.setItem('lvl',8);
+				break;
+			}
+			toHistory();
 		}
 		else{
 			error++;
@@ -159,5 +210,5 @@ function toHistory(){
 	var lvl=window.localStorage.getItem('lvl');
 	var punt=window.localStorage.getItem('punt');
 	$("#level-h").text("Tu nivel es: "+lvl+" Tu puntuación es: "+punt);
-	document.location.href = "#level-page"
+	document.location.href = "#level-page";
 }
