@@ -22,7 +22,7 @@ var app = {
         //registrar el listener
     	document.addEventListener('backbutton',function(){
     		//función para gestionar el boton de back
-    		navigator.app.backHistory();
+    		back();
     		},false);        
     },
 
