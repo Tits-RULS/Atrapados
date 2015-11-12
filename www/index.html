@@ -54,8 +54,19 @@
 		</div> 
 		
 		<div data-role="page" id="start-page">
-			<button id="duel-button" onclick="toDuel()">Duelo</button>
-			<button id="history-button" onclick="toHistory()">Historia</button>
+			<h1>MODO DE JUEGO</h1>
+			<table style="width:100%; heigth:100%">
+				<tr>
+					<td>
+						<button id="duel-button" onclick="toDuel()">Duelo</button>
+					</td>
+					<td>
+						<button id="history-button" onclick="toHistory()">Historia</button>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<button id="ajust-button" onclick="toProfile()">Ajustes</button>
 		</div>
 		
         <div data-role="page" id="level-page">
@@ -105,6 +116,22 @@
         
         <div data-role="page" id="duel-page">
         	<h1>NO HAY DUELOS</h1>
+        </div>
+        
+        <div data-role="page" id="profile-page">
+        	<h1>AJUSTES</h1>
+        	<h3 id="profile-name">Nombre de Usuario:</h3>
+        	<img id="profile-img" src="img/comenzar.png" width="30%" height="auto">
+        	<table style="width:100%; heigth:100%">
+				<tr>
+					<td>
+						<button id="change-img" onclick="changeFoto()">Cambiar Foto</button>
+					</td>
+					<td>
+						<button id="get-img" onclick="takeFoto()">Sacar Foto</button>
+					</td>
+				</tr>
+			</table>
         </div>
         
         <script type="text/javascript" src="cordova.js"></script>

@@ -18,6 +18,7 @@
 	<preference name="fullscreen" value="true" />
 	<preference name="webviewbounce" value="true" />
 	<preference name="Orientation" value="landscape"/>
+	<preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />

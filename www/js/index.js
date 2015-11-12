@@ -23,7 +23,8 @@ var app = {
     	document.addEventListener('backbutton',function(){
     		//función para gestionar el boton de back
     		back();
-    		},false);        
+    		},false);
+    	$.ajaxSetup({cache:false});
     },
 
 };
