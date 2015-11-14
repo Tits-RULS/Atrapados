@@ -13,8 +13,9 @@
         <title>ATRAPADOS</title>
         
         <style>
+        /*Start-page*/
         h1{
-        	align: center;
+        	text-align: center;
         	background: white;
         	display: block;
         	font-size: 2em;
@@ -24,26 +25,140 @@
         	margin-right: 0;
         	font-weight: bold;        	
         }
+        /*Level-page*/
         #level-page{
         	background-image: url("img/building.jpg");
         	background-repeat: no-repeat;
-        	background-position: center center;
-        	background-size: cover;
+        	background-position: center;
+        	background-size: contain;
         }        
         #start-button{
         	position: absolute;
         	bottom: 0px;
         	left: 10px;
         }
-		td {
-		  	width: 40%;
-		    height: 100%;
+        /*Subject-page*/
+        .wrapper {
+            width: 100%;
+            display: inline-block;
+            position: relative;
+            margin-left: auto ;
+            margin-right: auto ;
+        }
+        .wrapper:after {
+            padding-top: 56.25%;
+            /* 16:9 ratio */
+            display: block;
+            content: '';
+        }
+        .main {
+            position: absolute;
+            width: 100%;
+            height: 100%;                       
+            /* fill parent */
+            background-image: url("img/rellano.jpg");
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: cover;
+        } 
+        .datos-wrapper {
+            width: 20%;
+            display: inline-block;
+            position: relative;
+            margin-left: auto ;
+            margin-right: auto;
+        }
+        .datos-wrapper:after {
+            padding-top: 56.25%;
+            /* 16:9 ratio */
+            display: block;
+            content: '';
+        }
+        .datos{
+        	position: absolute;
+            bottom: 0%;
+            top: 120%;            
+            width: 100%;
+            height: 100%;
+            margin-left:50%;  
+            text-align: center;
+            font-size: 2vw;
+            color: white;            
+            /* fill parent */
+            background-image: url("img/cuadro.jpg");
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: contain;
+        }
+        .planta-wrapper {
+            width: 20%;
+            display: inline-block;
+            position: relative;
+            margin-left: auto ;
+            margin-right: auto;
+        }
+        .planta-wrapper:after {
+            padding-top: 56.25%;
+            /* 16:9 ratio */
+            display: block;
+            content: '';
+        }
+        .planta{
+            position: absolute;
+            bottom: 0%;
+            top: 120%;            
+            width: 100%;
+            height: 100%;
+            margin-left:97%;  
+            text-align: center;
+            font-size: 3vw;
+            color: maroon; 
+            font-family: 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Arial, sans-serif;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            line-height: 20px;           
+        }
+        .nombre-wrapper {
+            width: 20%;
+            display: inline-block;
+            position: relative;
+            margin-left: auto ;
+            margin-right: auto;
+        }
+        .nombre-wrapper:after {
+            padding-top: 56.25%;
+            /* 16:9 ratio */
+            display: block;
+            content: '';
+        }
+        .nombre{
+            position: absolute;
+            bottom: 0%;
+            top: 120%;            
+            width: 100%;
+            height: 100%;
+            margin-left:145%;  
+            text-align: center;
+            font-size: 2vw;
+            color: white;            
+            /* fill parent */
+            background-image: url("img/cuadro.jpg");
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: contain;
+        }
+        td {
+	  		width: 16%;
+	    	height: 400%;
+			text-align: center bottom;
+
 		}
         </style>
     </head>
     <body>
     
-    
+    	<!--Página de registro de usuario-->
 		<div data-role="page" id="login-page">
 			Nombre:<br>
 			<input type='text' id='login-name'>
@@ -53,8 +168,9 @@
 			<button onclick='login()'>Acceder</button>
 		</div> 
 		
+		<!--Página de selección de modo de juego-->
 		<div data-role="page" id="start-page">
-			<h1>MODO DE JUEGO</h1>
+			<h1>MODOS DE JUEGO</h1>
 			<table style="width:100%; heigth:100%">
 				<tr>
 					<td>
@@ -69,24 +185,66 @@
 			<button id="ajust-button" onclick="toProfile()">Ajustes</button>
 		</div>
 		
+		<!--Página de nivel-->
         <div data-role="page" id="level-page">
         	<h2 id="level-h"></h2>
         	<input id="start-button" type="image" src="img/comenzar.png" width="30%" height="auto" onclick="toSubject()">
         </div>
         
-        <div data-role="page" id="subject-page">
-        	<button id="subject-0-button" value="0" onclick="next(this)">Conocimiento del medio</button>
-        	<button id="subject-1-button" value="1" onclick="next(this)">Matemáticas</button>
-        	<button id="subject-2-button" value="2" onclick="next(this)">Lengua</button>
-        	<button id="subject-3-button" value="3" onclick="next(this)">Plástica</button>
-        	<button id="subject-4-button" value="4" onclick="next(this)">Música</button>
-        	<button id="subject-5-button" value="5" onclick="next(this)">Gimnasia</button>
-        </div>
+        <!--Página del modo historia-->
+        <div data-role="page" id="subject-page" class="wrapper">           
+                <div class="main">
+                	<div class="datos-wrapper">
+                        <div class="datos">
+                		    <p>Puntuación</p> <div id="puntuacion-nivel">0</div>
+                        </div>
+                	</div>
+                    <div class="planta-wrapper">
+                        <div class="planta">
+                            <p>PLANTA</p> <div id="numero-planta">1</div>
+                        </div>
+                    </div>
+                    <div class="nombre-wrapper">
+                        <div class="nombre">
+                            <br/><div id="nombre-usuario">Usuario</div>
+                        </div>
+                    </div>
+        		    <table style="width:80%; heigth:400%; position: absolute; margin-left:10%; margin-right:10%; bottom: 0%">
+            			<tr>
+            				<td>
+            					<input id="subjectb-0-button" class="puertas" type="image" src="img/cerrada1.png" width="100%" height="auto" value="0" onclick="next(this)">
+            					<img id="subjecti-0-img" class="puertas" src="img/abierta1.png" width="100%" height="auto">
+            				</td>
+            				<td>
+            					<input id="subjectb-1-button" type="image" src="img/cerrada2.png" width="100%" height="auto" value="1" onclick="next(this)">
+            					<img id="subjecti-1-img" class="puertas" src="img/abierta2.png" width="100%" height="auto">
+            				</td>
+            				<td>
+            					<input id="subjectb-2-button" type="image" src="img/cerrada3.png" width="100%" height="auto" value="2" onclick="next(this)">
+            					<img id="subjecti-2-img" class="puertas" src="img/abierta3.png" width="100%" height="auto">
+            				</td>
+            				<td>
+            					<input id="subjectb-3-button" type="image" src="img/cerrada4.png" width="100%" height="auto" value="3" onclick="next(this)">
+            					<img id="subjecti-3-img" class="puertas" src="img/abierta4.png" width="100%" height="auto">
+            				</td>
+            				<td>		
+            					<input id="subjectb-4-button" type="image" src="img/cerrada5.png" width="100%" height="auto" value="4" onclick="next(this)">
+            					<img id="subjecti-4-img" class="puertas" src="img/abierta5.png" width="100%" height="auto">
+            				</td>
+            				<td>
+            					<input id="subjectb-5-button" type="image" src="img/cerrada6.png" width="100%" height="auto" value="5" onclick="next(this)">
+            					<img id="subjecti-5-img" class="puertas" src="img/abierta6.png" width="100%" height="auto">
+            				</td>				
+            			</tr>
+        		    </table>
+                </div>
+                   
+	    </div>
         
         <div data-role="page" id="question-page" style="border:2">
         	<h1 id="question_title"> PREGUNTA</h1>
 			<h2 id="question"></h2>
-			<table border="1" style="width:100%; heigth:100%">
+			<table style="width:100%; heigth:100%">
   				<tr>
 				    <td>
 					    <button  id="question-button-1" value="0" onclick="result(this)"></button>
@@ -115,13 +273,13 @@
         </div>
         
         <div data-role="page" id="duel-page">
-        	<h1>NO HAY DUELOS</h1>
+        	<h1>DUELOS</h1>
         </div>
         
         <div data-role="page" id="profile-page">
         	<h1>AJUSTES</h1>
         	<h3 id="profile-name">Nombre de Usuario:</h3>
-        	<img id="profile-img" src="img/comenzar.png" width="30%" height="auto">
+        	<img id="profile-img" src="img/comenzar.png" width="auto" height="30%">
         	<table style="width:100%; heigth:100%">
 				<tr>
 					<td>

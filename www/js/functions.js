@@ -30,12 +30,49 @@ function login(){
 				}
 			}
 		});
+	})
+	.fail(function(){
+		alert("error conectando con el servidor");
 	});
 	alert("Tras el login");
 }
 
 function toDuel(){
-	//función que muestra los duelos(TODO)
+	//función que muestra los duelos
+	//recoger los duelos del servidor
+	var name = window.localStorage.getItem('name');
+	var pass = window.localStorage.getItem('pass');
+	$.post("http://51.254.221.215/getduels.php",{"name":name,"pss":pass},function(data){
+		var start = "<table style='width:100%'>";
+		var end = "</table>";
+		var table = "";
+		//separar los distintos JSON en arrays
+		js = $.parseJSON(data);
+		alert("antes del each");
+		alert(js);
+		$.each(js,function(i,arr){
+			//arr = $.parseJSON(i);
+			alert("dentro del each");
+			alert(arr);
+			table = table + "<tr>";
+			table = table + "<td>"+arr[0];
+			if(arr[1]==null){
+				table = table + "<img src='img/comenzar.png' height='30%' width='auto'>";
+			}else{
+				table = table + "<img src='http://51.254.221.215/uploads/"+arr[1]+"' height='30%' width='auto'>";
+			}
+			table = table + "</td>";
+			table = table + "<td>"+arr[2]+"-"+arr[3]+"</td>";
+			table = table + "<td>"+arr[4];
+			if(arr[5]==null){
+				table = table + "<img src='img/comenzar.png' height='30%' width='auto'>";
+			}else{
+				table = table + "<img src='http://51.254.221.215/uploads/"+arr[5]+"' height='30%' width='auto'>";
+			}
+			table = table + "</tr>";
+		});
+		$("#duel-page").append(start,table,end);
+	});
 	document.location.href = "#duel-page";
 	state=1;
 }
@@ -58,7 +95,8 @@ function toProfile(){
 	}
 	else{
 		//coger la foto
-		$("#profile-img").attr("src","http://51.254.221.215/uploads/"+name);
+		d = new Date();
+		$("#profile-img").attr("src","http://51.254.221.215/uploads/"+name+"?"+d.getTime());
 	}
 	document.location.href = "#profile-page";
 }
@@ -84,8 +122,9 @@ function changeFoto(){
 					case '0':
 						//imagen subida correctamente
 						alert("todo correcto");
-						window.localStorage.getItem('foto',1);
-						$("#profile-img").attr("src","http://51.254.221.215/uploads/"+name)
+						window.localStorage.setItem('foto',1);
+						d = new Date();
+						$("#profile-img").attr("src","http://51.254.221.215/uploads/"+name+"?"+d.getTime());
 						break;
 					case '-1':
 						alert("usuario o contraseña erroneo");
@@ -154,8 +193,9 @@ function takeFoto(){
 					case '0':
 						//imagen subida correctamente
 						alert("todo correcto");
-						window.localStorage.getItem('foto',1);
-						$("#profile-img").attr("src","http://51.254.221.215/uploads/"+name)
+						window.localStorage.setItem('foto',1);
+						d = new Date();
+						$("#profile-img").attr("src","http://51.254.221.215/uploads/"+name+"?"+d.getTime());
 						break;
 					case '-1':
 						alert("usuario o contraseña erroneo");

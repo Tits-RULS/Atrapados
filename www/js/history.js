@@ -7,12 +7,21 @@ var first;		//indica si se ha respondido erroneamente ese pregunta
 
 function toSubject(){
 	document.location.href = "#subject-page";
+	//ajustar datos
+	$("#numero-planta").text(window.localStorage.getItem('lvl'));
+	$("#puntuacion-nivel").text("0");
+	$("#nombre-usuario").text(window.localStorage.getItem('name'));
 	//inicializar nivel
-	$("button[id|='subject']").each(
+	$("input[id|='subjectb']").each(
 		function(){
 			$(this).show();
 		}	
 	);
+	$("img[id|='subjecti']").each(
+			function(){
+				$(this).hide();
+			}	
+		);
 	error=0;
 	lvlpunt=0;
 	count=0
@@ -21,29 +30,74 @@ function toSubject(){
 function next(elem){
 	//elegir el tema y la pregunta de manera aleatoria
 	var subject=$(elem).val();
-	var i=Math.floor((Math.random()*3));
 	document.location.href = "#question-page";
-	load(i,subject);
+	load(subject);
 }
 
 //función que carga pregunta, las respuestas y selecciona lo correcto
-function load(i,subject){
+function load(subject){
 	//establecer el estilo según el tema
 	themeStyle(subject);
 	gsub = subject;
-	//para usar el tema como index se debe pasar a INT
-	var sub = parseInt(subject);
+	var strsub;
+	//asociar el número de tema a su valor de str
+	switch(subject){
+	case '0':
+		strsub="Conocimiento+del+medio";
+		break;
+	case '1':
+		strsub="Matematicas";
+		break;
+	case '2':
+		strsub="Lengua";
+		break;
+	case '3':
+		strsub="Ingles";
+		break;
+	case '4':
+		strsub="Musica";
+		break;
+	case '5':
+		strsub="Gimnasia";
+		break;
+	}
 	//extraer el nivel de lo almacenado internamente
 	var lvl = window.localStorage.getItem('lvl');
-	//cargar la pregunta y las respuestas
-	$("#question").text(tests.test[sub][lvl-1][i].question);
+	//limpiar los botones
 	$("button[id|='question-button']").each(
- 			function(index) {
- 				$(this).text(tests.test[sub][lvl-1][i].resp[index]);
- 				$(this).css("background-color","white");
- 			}
- 	);
-	correct=tests.test[sub][lvl-1][i].correct;
+			function(index){
+				$(this).text("");
+				$(this).css("background-color","white");
+			}
+	);	
+	//cargar la pregunta y las respuestas del servidor	
+	$.getJSON("http://51.254.221.215/getquestion.php?Tema="+strsub+"&lvl="+lvl,function(data){
+		$.each(data,function(key,val){
+			switch(key){
+			case "Result":
+				alert("error recogiendo la pregunta");
+				return;
+				break;
+			case "Pregunta":
+				$("#question").text(val);
+				break;
+			case "R1":
+				$("#question-button-1").text(val);
+				break;
+			case "R2":
+				$("#question-button-2").text(val);
+				break;
+			case "R3":
+				$("#question-button-3").text(val);
+				break;
+			case "R4":
+				$("#question-button-4").text(val);
+				break;
+			case "Correcta":
+				correct=val;
+			}
+		});
+	});
 	//inicializar el indicador de primera respuesta y el tiempo
 	first=0;
 	$("#timer").timer();
@@ -150,7 +204,9 @@ function result(elem){
 			//no se ha terminado el nivel
 			//actualizar el contador de preguntas correctas
 			count++;
-			$('#subject-'+gsub+'-button').hide();
+			$('#subjectb-'+gsub+'-button').hide();
+			$('#subjecti-'+gsub+'-img').show();
+			$("#puntuacion-nivel").text(lvlpunt);
 			document.location.href = "#subject-page";
 		}
 	}
