@@ -42,36 +42,47 @@ function toDuel(){
 	//recoger los duelos del servidor
 	var name = window.localStorage.getItem('name');
 	var pass = window.localStorage.getItem('pass');
+	//resetear el div
+	$("#duel-page").html("<h1>DUELOS</h1><button id='new-duel-button' onclick='newDuel()'>Nuevo Duelo</button>");
 	$.post("http://51.254.221.215/getduels.php",{"name":name,"pss":pass},function(data){
-		var start = "<table style='width:100%'>";
+		var start = "<table border='1'>";
 		var end = "</table>";
 		var table = "";
 		//separar los distintos JSON en arrays
 		js = $.parseJSON(data);
-		alert("antes del each");
-		alert(js);
 		$.each(js,function(i,arr){
-			//arr = $.parseJSON(i);
-			alert("dentro del each");
-			alert(arr);
-			table = table + "<tr>";
-			table = table + "<td>"+arr[0];
-			if(arr[1]==null){
-				table = table + "<img src='img/comenzar.png' height='30%' width='auto'>";
+			if(arr.length==6){
+				table = table + "<tr>";
+				table = table + "<td data-name='"+arr[0]+"' onclick='toOnlineProfile(this)' width='30%'>"+arr[0]+"<br>";
+				if(arr[1]==null){
+					table = table + "<img src='img/comenzar.png' height='auto' width='100%'>";
+				}else{
+					table = table + "<img src='http://51.254.221.215/uploads/"+arr[1]+"' height='auto' width='100%'>";
+				}
+				table = table + "</td>";
+				table = table + "<td width='60%'>"+arr[2]+"-"+arr[3]+"</td>";
+				table = table + "<td data-name='"+arr[4]+"' onclick='toOnlineProfile(this)' width='30%'>"+arr[4]+"<br>";
+				if(arr[5]==null){
+					table = table + "<img src='img/comenzar.png' height='auto' width='100%'>";
+				}else{
+					table = table + "<img src='http://51.254.221.215/uploads/"+arr[5]+"' height='auto' width='100%'>";
+				}
+				table = table + "</tr>";
 			}else{
-				table = table + "<img src='http://51.254.221.215/uploads/"+arr[1]+"' height='30%' width='auto'>";
+				table = table + "<tr>";
+				table = table + "<td data-name='"+arr[0]+"' onclick='toOnlineProfile(this)' width='30%'>"+arr[0]+"<br>";
+				if(arr[1]==null){
+					table = table + "<img src='img/comenzar.png' height='auto' width='100%'>";
+				}else{
+					table = table + "<img src='http://51.254.221.215/uploads/"+arr[1]+"' height='auto' width='100%'>";
+				}
+				table = table + "</td>";
+				table = table + "<td width='60%'>"+arr[2]+"-***</td>";
+				table = table + "<td  width='30%'>***<br>";
+				table = table + "</tr>";
 			}
-			table = table + "</td>";
-			table = table + "<td>"+arr[2]+"-"+arr[3]+"</td>";
-			table = table + "<td>"+arr[4];
-			if(arr[5]==null){
-				table = table + "<img src='img/comenzar.png' height='30%' width='auto'>";
-			}else{
-				table = table + "<img src='http://51.254.221.215/uploads/"+arr[5]+"' height='30%' width='auto'>";
-			}
-			table = table + "</tr>";
 		});
-		$("#duel-page").append(start,table,end);
+		$("#duel-page").append(start+table+end);
 	});
 	document.location.href = "#duel-page";
 	state=1;
@@ -267,4 +278,15 @@ function back(){
 		state = 0;
 		break;
 	}
+}
+
+function toOnlineProfile(elem){
+	alert("en funcion nueva");
+	var name = elem.getAttribute("data-name");
+	$("#online-name").text("Nombre: "+name);
+	document.location.href  = "#onlineP-page";
+}
+
+function newDuel(){
+	
 }
