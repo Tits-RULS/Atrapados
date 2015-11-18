@@ -241,6 +241,7 @@
                    
 	    </div>
         
+        <!--Página de las preguntas-->
         <div data-role="page" id="question-page" style="border:2">
         	<h1 id="question_title"> PREGUNTA</h1>
 			<h2 id="question"></h2>
@@ -265,6 +266,7 @@
 			<div id="timer" style="display: none"></div>
         </div>
         
+        <!--Página del diploma final-->
         <div data-role="page" id="congrat-page">
         	<h1 id="congrat-name"></h1>
         	<h2 id="congrat-punt"></h2>
@@ -274,8 +276,85 @@
         
         <div data-role="page" id="duel-page">
         	<h1>DUELOS</h1>
+        	<button id='new-duel-button' onclick='newDuel()'>Nuevo Duelo</button>
+        	<div id="duelos-table"></div>
         </div>
         
+        <!--Página de tema de los duelos-->
+        <div data-role="page" id="ddoor-page" class="wrapper">           
+                <div class="main">
+                	<div class="datos-wrapper">
+                        <div class="datos">
+                		   <div id="duel-name1">0</div>
+                        </div>
+                	</div>
+                    <div class="planta-wrapper">
+                        <div class="planta">
+                           <div id="duel-time">1</div>
+                        </div>
+                    </div>
+                    <div class="nombre-wrapper">
+                        <div class="nombre">
+                            <br/><div id="duel-name2">Usuario</div>
+                        </div>
+                    </div>
+        		    <table style="width:80%; heigth:400%; position: absolute; margin-left:10%; margin-right:10%; bottom: 0%">
+            			<tr>
+            				<td>
+            					<input id="duelb-0-button" class="puertas" type="image" src="img/cerrada1.png" width="100%" height="auto" value="0" onclick="toQuestion(this)">
+            					<img id="dueli-0-img" class="puertas" src="img/abierta1.png" width="100%" height="auto">
+            				</td>
+            				<td>
+            					<input id="duelb-1-button" type="image" src="img/cerrada2.png" width="100%" height="auto" value="1" onclick="toQuestion(this)">
+            					<img id="dueli-1-img" class="puertas" src="img/abierta2.png" width="100%" height="auto">
+            				</td>
+            				<td>
+            					<input id="duelb-2-button" type="image" src="img/cerrada3.png" width="100%" height="auto" value="2" onclick="toQuestion(this)">
+            					<img id="dueli-2-img" class="puertas" src="img/abierta3.png" width="100%" height="auto">
+            				</td>
+            				<td>
+            					<input id="duelb-3-button" type="image" src="img/cerrada4.png" width="100%" height="auto" value="3" onclick="toQuestion(this)">
+            					<img id="dueli-3-img" class="puertas" src="img/abierta4.png" width="100%" height="auto">
+            				</td>
+            				<td>		
+            					<input id="duelb-4-button" type="image" src="img/cerrada5.png" width="100%" height="auto" value="4" onclick="toQuestion(this)">
+            					<img id="dueli-4-img" class="puertas" src="img/abierta5.png" width="100%" height="auto">
+            				</td>
+            				<td>
+            					<input id="duelb-5-button" type="image" src="img/cerrada6.png" width="100%" height="auto" value="5" onclick="toQuestion(this)">
+            					<img id="dueli-5-img" class="puertas" src="img/abierta6.png" width="100%" height="auto">
+            				</td>				
+            			</tr>
+        		    </table>
+                </div>
+	    </div>
+	    
+	    <!--Pagina de preguntas de duelo-->
+	    <div data-role="page" id="dquestion-page" style="border:2">
+        	<h1 id="dquestion_title"> PREGUNTA</h1>
+			<h2 id="dquestion"></h2>
+			<table style="width:100%; heigth:100%">
+  				<tr>
+				    <td>
+					    <button  id="dquestion-button-1" value="0" onclick="dresult(this)"></button>
+					</td>
+					<td>
+					    <button  id="dquestion-button-2" value="1" onclick="dresult(this)"></button>
+					</td>
+				  </tr>
+				  <tr>
+				    <td>
+				    	<button  id="dquestion-button-3" value="2" onclick="dresult(this)"></button>
+				    </td>
+				    <td>
+				    	<button  id="dquestion-button-4" value="3" onclick="dresult(this)"></button>
+				    </td>
+				  </tr>
+			</table> 			
+			<div id="dtimer" style="display: none"></div>
+        </div>
+        
+        <!--Página de perfil (ajustes)-->
         <div data-role="page" id="profile-page">
         	<h1>AJUSTES</h1>
         	<h3 id="profile-name">Nombre de Usuario:</h3>
@@ -292,12 +371,13 @@
 			</table>
         </div>
         
+        <!--Página de perfil online de un usuario-->
         <div data-role="page" id="onlineP-page">
         	<h1 id="online-name">PERFIL ONLINE</h1>
         </div>
         
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/questions.js"></script>
+        <script type="text/javascript" src="js/duels.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/history.js"></script>
         <script type="text/javascript" src="js/index.js"></script>

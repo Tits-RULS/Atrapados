@@ -21,7 +21,7 @@ function toSubject(){
 			function(){
 				$(this).hide();
 			}	
-		);
+	);
 	error=0;
 	lvlpunt=0;
 	count=0
@@ -30,7 +30,6 @@ function toSubject(){
 function next(elem){
 	//elegir el tema y la pregunta de manera aleatoria
 	var subject=$(elem).val();
-	document.location.href = "#question-page";
 	load(subject);
 }
 
@@ -72,11 +71,12 @@ function load(subject){
 	);	
 	//cargar la pregunta y las respuestas del servidor	
 	$.getJSON("http://51.254.221.215/getquestion.php?Tema="+strsub+"&lvl="+lvl,function(data){
+		var error;
 		$.each(data,function(key,val){
 			switch(key){
 			case "Result":
 				alert("error recogiendo la pregunta");
-				return;
+				error = 1;
 				break;
 			case "Pregunta":
 				$("#question").text(val);
@@ -95,12 +95,16 @@ function load(subject){
 				break;
 			case "Correcta":
 				correct=val;
+				break;
 			}
 		});
+		if(error!=1){
+			//inicializar el idicador de primera respuesta y el tiempo
+			first=0;
+			$("#timer").timer();
+			document.location.href = "#question-page";
+		}
 	});
-	//inicializar el indicador de primera respuesta y el tiempo
-	first=0;
-	$("#timer").timer();
 }
 
 //función para comprobar el resultado y realizar las acciones correspondientes
@@ -282,7 +286,7 @@ function themeStyle(i){
 		break;
 	case "3"://Plástica
 		$("#question-page").css("background-color", "plum");
-		$("#question_title").html("Plástica");
+		$("#question_title").html("Inglés");
 		break;
 	case "4"://Música
 		$("#question-page").css("background-color", "gold");

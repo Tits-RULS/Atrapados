@@ -43,15 +43,22 @@ function toDuel(){
 	var name = window.localStorage.getItem('name');
 	var pass = window.localStorage.getItem('pass');
 	//resetear el div
-	$("#duel-page").html("<h1>DUELOS</h1><button id='new-duel-button' onclick='newDuel()'>Nuevo Duelo</button>");
 	$.post("http://51.254.221.215/getduels.php",{"name":name,"pss":pass},function(data){
 		var start = "<table border='1'>";
 		var end = "</table>";
 		var table = "";
 		//separar los distintos JSON en arrays
-		js = $.parseJSON(data);
+		var js = $.parseJSON(data);
 		$.each(js,function(i,arr){
-			if(arr.length==6){
+			if(arr.length==8){
+				/*arr[0]=nombre1
+				 *arr[1]=foto1
+				 *arr[2]=punt1
+				 *arr[3]=punt2
+				 *arr[4]=nombre2
+				 *arr[5]=foto2
+				 *arr[6]=date
+				 *arr[7]=duel id*/
 				table = table + "<tr>";
 				table = table + "<td data-name='"+arr[0]+"' onclick='toOnlineProfile(this)' width='30%'>"+arr[0]+"<br>";
 				if(arr[1]==null){
@@ -60,7 +67,7 @@ function toDuel(){
 					table = table + "<img src='http://51.254.221.215/uploads/"+arr[1]+"' height='auto' width='100%'>";
 				}
 				table = table + "</td>";
-				table = table + "<td width='60%'>"+arr[2]+"-"+arr[3]+"</td>";
+				table = table + "<td width='40%'>"+arr[2]+"-"+arr[3]+"</td>";
 				table = table + "<td data-name='"+arr[4]+"' onclick='toOnlineProfile(this)' width='30%'>"+arr[4]+"<br>";
 				if(arr[5]==null){
 					table = table + "<img src='img/comenzar.png' height='auto' width='100%'>";
@@ -69,6 +76,11 @@ function toDuel(){
 				}
 				table = table + "</tr>";
 			}else{
+				/*arr[0]=nombre1
+				 *arr[1]=foto1
+				 *arr[2]=punt1
+				 *arr[3]=date
+				 *arr[4]=duel id*/
 				table = table + "<tr>";
 				table = table + "<td data-name='"+arr[0]+"' onclick='toOnlineProfile(this)' width='30%'>"+arr[0]+"<br>";
 				if(arr[1]==null){
@@ -77,12 +89,12 @@ function toDuel(){
 					table = table + "<img src='http://51.254.221.215/uploads/"+arr[1]+"' height='auto' width='100%'>";
 				}
 				table = table + "</td>";
-				table = table + "<td width='60%'>"+arr[2]+"-***</td>";
+				table = table + "<td width='60%' data-id='"+arr[4]+"'>"+arr[2]+"-***</td>";
 				table = table + "<td  width='30%'>***<br>";
 				table = table + "</tr>";
 			}
 		});
-		$("#duel-page").append(start+table+end);
+		$("#duelos-table").html(start+table+end);
 	});
 	document.location.href = "#duel-page";
 	state=1;
@@ -288,5 +300,7 @@ function toOnlineProfile(elem){
 }
 
 function newDuel(){
-	
+	//crea un nuevoduelo
+	//nuevo estado?
+	startDuel();
 }
