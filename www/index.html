@@ -14,9 +14,12 @@
         
         <style>
         /*Start-page*/
+        .menu{
+            background-color: gainsboro;
+            color: tomato;
+        }
         h1{
         	text-align: center;
-        	background: white;
         	display: block;
         	font-size: 2em;
         	margin-top: 0.67em;
@@ -61,14 +64,14 @@
             background-position: center bottom;
             background-size: cover;
         } 
-        .datos-wrapper {
+        .item-wrapper {
             width: 20%;
             display: inline-block;
             position: relative;
             margin-left: auto ;
             margin-right: auto;
         }
-        .datos-wrapper:after {
+        .item-wrapper:after {
             padding-top: 56.25%;
             /* 16:9 ratio */
             display: block;
@@ -90,19 +93,6 @@
             background-position: center bottom;
             background-size: contain;
         }
-        .planta-wrapper {
-            width: 20%;
-            display: inline-block;
-            position: relative;
-            margin-left: auto ;
-            margin-right: auto;
-        }
-        .planta-wrapper:after {
-            padding-top: 56.25%;
-            /* 16:9 ratio */
-            display: block;
-            content: '';
-        }
         .planta{
             position: absolute;
             bottom: 0%;
@@ -118,19 +108,6 @@
             font-variant: normal;
             font-weight: 400;
             line-height: 20px;           
-        }
-        .nombre-wrapper {
-            width: 20%;
-            display: inline-block;
-            position: relative;
-            margin-left: auto ;
-            margin-right: auto;
-        }
-        .nombre-wrapper:after {
-            padding-top: 56.25%;
-            /* 16:9 ratio */
-            display: block;
-            content: '';
         }
         .nombre{
             position: absolute;
@@ -159,30 +136,32 @@
     <body>
     
     	<!--Página de registro de usuario-->
-		<div data-role="page" id="login-page">
+		<div data-role="page" id="login-page" class="menu">
 			Nombre:<br>
 			<input type='text' id='login-name'>
 			<br> Contraseña:<br>
 			<input type='text' id='login-pass'>
 			<br>
 			<button onclick='login()'>Acceder</button>
-		</div> 
+		</div>
 		
 		<!--Página de selección de modo de juego-->
-		<div data-role="page" id="start-page">
+		<div data-role="page" id="start-page" class="menu">
+            <br><br>
 			<h1>MODOS DE JUEGO</h1>
-			<table style="width:100%; heigth:100%">
+			<table style="width:80%; heigth:100%; margin-left:10%; margin-right:10%">
 				<tr>
 					<td>
-						<button id="duel-button" onclick="toDuel()">Duelo</button>
+						<button id="duel-button" onclick="toDuel()" style="font-size: 2em">Duelo</button>
 					</td>
+                    <td style="width:2%"></td>
 					<td>
-						<button id="history-button" onclick="toHistory()">Historia</button>
+						<button id="history-button" onclick="toHistory()" style="font-size: 2em">Historia</button>
 					</td>
 				</tr>
 			</table>
 			<br>
-			<button id="ajust-button" onclick="toProfile()">Ajustes</button>
+            <input id="ajust-button" type="image" src="img/ajustes2.png" width="10%" height="auto" value="2" onclick="toProfile()" style="position: absolute; bottom: 5%; margin-left: 45%; margin-right: 45%">
 		</div>
 		
 		<!--Página de nivel-->
@@ -194,17 +173,17 @@
         <!--Página del modo historia-->
         <div data-role="page" id="subject-page" class="wrapper">           
                 <div class="main">
-                	<div class="datos-wrapper">
+                	<div class="item-wrapper">
                         <div class="datos">
                 		    <p>Puntuación</p> <div id="puntuacion-nivel">0</div>
                         </div>
                 	</div>
-                    <div class="planta-wrapper">
+                    <div class="item-wrapper">
                         <div class="planta">
                             <p>PLANTA</p> <div id="numero-planta">1</div>
                         </div>
                     </div>
-                    <div class="nombre-wrapper">
+                    <div class="item-wrapper">
                         <div class="nombre">
                             <br/><div id="nombre-usuario">Usuario</div>
                         </div>
@@ -274,28 +253,28 @@
         	<button id="congrat-button" onclick="document.location.href = '#start-page';">Volver</button>
         </div>
         
-        <div data-role="page" id="duel-page">
+        <div data-role="page" id="duel-page" class="menu">
         	<h1>DUELOS</h1>
         	<button id='new-duel-button' onclick='newDuel()'>Nuevo Duelo</button>
         	<div id="duelos-table"></div>
         </div>
         
         <!--Página de tema de los duelos-->
-        <div data-role="page" id="ddoor-page" class="wrapper">           
-                <div class="main">
-                	<div class="datos-wrapper">
+        <div data-role="page" id="ddoor-page" class="wrapper">
+        	<div class="main">           
+                <div class="item-wrapper">
                         <div class="datos">
-                		   <div id="duel-name1">0</div>
+                		    <div id="duel-name1">0</div>
                         </div>
                 	</div>
-                    <div class="planta-wrapper">
+                    <div class="item-wrapper">
                         <div class="planta">
-                           <div id="duel-time">1</div>
+                            <div id="duel-time">1</div>
                         </div>
                     </div>
-                    <div class="nombre-wrapper">
+                    <div class="item-wrapper">
                         <div class="nombre">
-                            <br/><div id="duel-name2">Usuario</div>
+                            <div id="duel-name2">Usuario</div>
                         </div>
                     </div>
         		    <table style="width:80%; heigth:400%; position: absolute; margin-left:10%; margin-right:10%; bottom: 0%">
@@ -326,8 +305,8 @@
             				</td>				
             			</tr>
         		    </table>
-                </div>
-	    </div>
+        	</div>
+        </div>
 	    
 	    <!--Pagina de preguntas de duelo-->
 	    <div data-role="page" id="dquestion-page" style="border:2">
@@ -354,27 +333,60 @@
 			<div id="dtimer" style="display: none"></div>
         </div>
         
-        <!--Página de perfil (ajustes)-->
-        <div data-role="page" id="profile-page">
+        <!--Página de perfil (ajustes) (PENDIENTE ARREGLO DEL RESPONSIVE)-->
+        <div data-role="page" id="profile-page" class="menu">
         	<h1>AJUSTES</h1>
-        	<h3 id="profile-name">Nombre de Usuario:</h3>
-        	<img id="profile-img" src="img/comenzar.png" width="auto" height="30%">
-        	<table style="width:100%; heigth:100%">
-				<tr>
-					<td>
-						<button id="change-img" onclick="changeFoto()">Cambiar Foto</button>
-					</td>
-					<td>
-						<button id="get-img" onclick="takeFoto()">Sacar Foto</button>
-					</td>
-				</tr>
-			</table>
-        </div>
+			<table style="width:80%; heigth:100%; margin-left:10%; margin-right:10%">
+            		<tr>
+						<td align="center" width="40%">
+        	   				<img id="profile-img" src="img/comenzar.png" width="100%" height="auto" >
+						</td>
+						<td>		
+                			<table style="width: 100%; font-size: 1em">
+								<tr>
+									<td style="width: 30%; height:auto">Nombre: </td>
+									<td id="profile-name" style="width: 30%"></td>
+								</tr>
+						    	<tr>
+									<td>Pnt. Historia: </td>
+									<td id="">0</td>
+						   		</tr>
+						    	<tr>
+									<td>Pnt. Versus: </td>
+									<td id="">0</td>
+                    			</tr>
+                			</table>    
+	   					</td>
+					</tr>
+					<tr>
+						<td>
+							<button id="change-img" onclick="changeFoto()" style="font-size: 1em">Cambiar Foto</button>
+						</td>
+	                    <td>
+							<button id="get-img" onclick="takeFoto()" style="font-size: 1em">Sacar Foto</button>
+						</td>
+					</tr>
+				</table>
+			</div>
         
-        <!--Página de perfil online de un usuario-->
-        <div data-role="page" id="onlineP-page">
-        	<h1 id="online-name">PERFIL ONLINE</h1>
-        </div>
+	<!--Página de perfil online de un usuario-->
+    <div data-role="page" id="onlineP-page">
+		<h1 id="online-name">PERFIL ONLINE</h1>
+    </div>
+    
+    <!--Div for video up-->
+    <div data-role="page" id="div-up">
+    	<video id="up-video" width="auto" height="100%">
+    		<source src="http://51.254.221.215/uploads/subir.mp4" type="video/mp4">
+    	</video>
+    </div>
+    
+    <!--Div for video down-->
+    <div data-role="page" id="div-down">
+    	<video id="down-video" width="auto" height="100%">
+    		<source src="http://51.254.221.215/uploads/Bajar.mp4" type="video/mp4">
+    	</video>
+    </div>
         
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/duels.js"></script>

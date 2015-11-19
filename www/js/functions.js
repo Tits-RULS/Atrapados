@@ -4,14 +4,15 @@ var state=0;	//indica en que punto de la aplicación se encuentra
 function login(){
 	var name=$("#login-name").val();
 	var pss=$("#login-pass").val();
-	//mandar petición y recibir respuesta
+
+	//Mandar petición y recibir respuesta
 	$.getJSON("http://51.254.221.215/login.php?Nombre="+name+"&Pass="+pss,function(data){
 		$.each(data,function(key,val){
 			if(key=="Result"){
 				alert(typeof(val));
 				switch(val){
 				case '0':
-					//el login a sido correcto, almacenar y pasar a la siguiente página
+					//El login a sido correcto, almacenar y pasar a la siguiente página
 					alert("login OK");
 					window.localStorage.setItem('name',name);
 					window.localStorage.setItem('pass',pss);
@@ -34,9 +35,20 @@ function login(){
 	.fail(function(){
 		alert("error conectando con el servidor");
 	});
-	alert("Tras el login");
+	//alert("Tras el login");
 }
 
+//Funcion para pasar al modo historia
+function toHistory(){
+	var lvl=window.localStorage.getItem('lvl');
+	var punt=window.localStorage.getItem('punt');
+	$("#level-h").text("Tu puntuación es: "+punt);
+	$("#level-page").css("background-image","url(img/"+lvl+".jpg)");
+	document.location.href = "#level-page";
+	state=2;
+}
+
+//Funcion para pasar al modo de duelo
 function toDuel(){
 	//función que muestra los duelos
 	//recoger los duelos del servidor
@@ -60,21 +72,55 @@ function toDuel(){
 				 *arr[6]=date
 				 *arr[7]=duel id*/
 				table = table + "<tr>";
-				table = table + "<td data-name='"+arr[0]+"' onclick='toOnlineProfile(this)' width='30%'>"+arr[0]+"<br>";
+				
+				//parte del jugador 1
+				if(arr[2]!=null&&arr[3]!=null&&arr[2]<arr[3]){
+					//ganador jugador 1
+					table = table + "<td align='center' data-name='"+arr[0]+"' onclick='toOnlineProfile(this)' width='30%' bgcolor='green'><font color='black'>"+arr[0]+"</font><br>";
+				}else if(arr[2]!=null&&arr[3]!=null&&arr[2]>arr[3]){
+					//ganador jugador 2
+					table = table + "<td align='center' data-name='"+arr[0]+"' onclick='toOnlineProfile(this)' width='30%' bgcolor='red'><font color='black'>"+arr[0]+"</font><br>";
+				}else{
+					//no hay ganador
+					table = table + "<td align='center' data-name='"+arr[0]+"' onclick='toOnlineProfile(this)' width='30%'><font color='black'>"+arr[0]+"</font><br>";
+				}
+				
 				if(arr[1]==null){
 					table = table + "<img src='img/comenzar.png' height='auto' width='100%'>";
 				}else{
-					table = table + "<img src='http://51.254.221.215/uploads/"+arr[1]+"' height='auto' width='100%'>";
+						table = table + "<img src='http://51.254.221.215/uploads/"+arr[1]+"' height='auto' width='100%'>";					
 				}
 				table = table + "</td>";
-				table = table + "<td width='40%'>"+arr[2]+"-"+arr[3]+"</td>";
-				table = table + "<td data-name='"+arr[4]+"' onclick='toOnlineProfile(this)' width='30%'>"+arr[4]+"<br>";
+				
+				//parte de puntuaciones
+				if(arr[1]==name&&arr[2]==null){
+					table = table + "<td align='center' width='40%' data-id='"+arr[7]+"' data-type='2' data-n1='"+arr[0]+"' data-n2='"+arr[4]+"' onclick='doDuel(this)'><font color='black'>"+arr[2]+"-"+arr[3]+"</font></td>";
+				}else{
+					if(arr[4]==name&&arr[3]==null){
+						table = table + "<td align='center' width='40%' data-id='"+arr[7]+"' data-type='2' data-n1='"+arr[0]+"' data-n2='"+arr[4]+"' onclick='doDuel(this)'><font color='balck'>"+arr[2]+"-"+arr[3]+"</font></td>";
+					}else{
+						alert("puntuación");
+						table = table + "<td align='center' width='40%' ><font color='black'>"+arr[2]+"-"+arr[3]+"</font></td>";
+					}
+				}
+				
+				//parte de juador 2
+				if(arr[2]!=null&&arr[3]!=null&&arr[2]<arr[3]){
+					//ganador jugador 1
+					table = table + "<td align='center' data-name='"+arr[4]+"' onclick='toOnlineProfile(this)' width='30%' bgcolor='red'><font color='black'>"+arr[4]+"</font><br>";
+				}else if(arr[2]!=null&&arr[3]!=null&&arr[2]>arr[3]){
+					//ganador jugador 2
+					table = table + "<td align='center' data-name='"+arr[4]+"' onclick='toOnlineProfile(this)' width='30%' bgcolor='green'><font color='black'>"+arr[4]+"</font><br>";
+				}else{
+					//no hay ganador
+					table = table + "<td align='center' data-name='"+arr[4]+"' onclick='toOnlineProfile(this)' width='30%'><font color='black'>"+arr[4]+"</font><br>";
+				}
 				if(arr[5]==null){
 					table = table + "<img src='img/comenzar.png' height='auto' width='100%'>";
 				}else{
 					table = table + "<img src='http://51.254.221.215/uploads/"+arr[5]+"' height='auto' width='100%'>";
 				}
-				table = table + "</tr>";
+				table = table + "</td></tr>";
 			}else{
 				/*arr[0]=nombre1
 				 *arr[1]=foto1
@@ -82,15 +128,19 @@ function toDuel(){
 				 *arr[3]=date
 				 *arr[4]=duel id*/
 				table = table + "<tr>";
-				table = table + "<td data-name='"+arr[0]+"' onclick='toOnlineProfile(this)' width='30%'>"+arr[0]+"<br>";
+				table = table + "<td align='center' data-name='"+arr[0]+"' onclick='toOnlineProfile(this)' width='30%'><font color='black'>"+arr[0]+"</font><br>";
 				if(arr[1]==null){
 					table = table + "<img src='img/comenzar.png' height='auto' width='100%'>";
 				}else{
 					table = table + "<img src='http://51.254.221.215/uploads/"+arr[1]+"' height='auto' width='100%'>";
 				}
 				table = table + "</td>";
-				table = table + "<td width='60%' data-id='"+arr[4]+"'>"+arr[2]+"-***</td>";
-				table = table + "<td  width='30%'>***<br>";
+				if(arr[2]==null){
+					table = table + "<td align='center' width='40%' data-id='"+arr[4]+"' data-type='1' onclick='doDuel(this)'><font color='black'>"+arr[2]+"-***</font></td>";
+				}else{
+					table = table + "<td align='center' width='40%' data-id='"+arr[4]+"'><font color='black'>"+arr[2]+"-***</font></td>";
+				}
+				table = table + "<td align='center'  width='30%'><font color='black'>***</font><br>";
 				table = table + "</tr>";
 			}
 		});
@@ -99,19 +149,11 @@ function toDuel(){
 	document.location.href = "#duel-page";
 	state=1;
 }
-function toHistory(){
-	//Pasa al modo historia
-	var lvl=window.localStorage.getItem('lvl');
-	var punt=window.localStorage.getItem('punt');
-	$("#level-h").text("Tu nivel es: "+lvl+" Tu puntuación es: "+punt);
-	document.location.href = "#level-page";
-	state=2;
-}
 
 function toProfile(){
 	state=3;
 	var name = window.localStorage.getItem('name');
-	$("#profile-name").text("Nombre de usuario: "+name);
+	$("#profile-name").text(name);
 	if(localStorage.getItem("foto")==null){
 		//si no hay ninguna foto poner la de por defecto
 		$("#profile-img").attr("src","img/comenzar.png");
@@ -121,29 +163,30 @@ function toProfile(){
 		d = new Date();
 		$("#profile-img").attr("src","http://51.254.221.215/uploads/"+name+"?"+d.getTime());
 	}
+	//obtener puntuación
 	document.location.href = "#profile-page";
 }
 
-//función que cambia la foto de perfil cogiendola del móbil
+//Función que cambia la foto de perfil cogiendola del móvil
 function changeFoto(){
-	//opciones de captura de foto
+	//Opciones de captura de foto
 	var options = {
 			quality: 50,
 			destinationType: Camera.DestinationType.FILE_URI,
 			sourceType: Camera.PictureSourceType.PHOTOLIBRARY
 	};
 	
-	//en caso de coger la foto correctamente (subirla al servidor)
+	//En caso de coger la foto correctamente (subirla al servidor)
 	function onSuccess(imageURI){
-		var win = function (r){
-			//función en caso de que la subida sea correcta
+		//Función en caso de que la subida sea correcta
+		var win = function (r){			
 			alert("response: "+r.response);
 			var js = $.parseJSON(r.response);
 			$.each(js,function(key,val){
 				if(key=="Result"){
 					switch(val){
 					case '0':
-						//imagen subida correctamente
+						//Imagen subida correctamente
 						alert("todo correcto");
 						window.localStorage.setItem('foto',1);
 						d = new Date();
@@ -163,24 +206,24 @@ function changeFoto(){
 			});
 		}
 		
+		//Funcion en caso de que la subida sea incorrecta
 		var fail = function (error){
-			//problema alsubir el archivo
 			alert("error al subir el archivo: "+error.responseCode);
 		}
 		
-		//opciones del fichero
+		//Opciones del fichero
 		var options = new FileUploadOptions();
 		options.fileKey = "picture";
 		options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
 		options.filemimeType = "img/jpeg";
 		
-		//enviar nombre y contraseña
+		//Enviar nombre y contraseña
 		var name = window.localStorage.getItem('name');
 		var pass = window.localStorage.getItem('pass');
 		var params = {};
 		params.value1 = name;
 		params.value2 = pass;
-		
+
 		options.params = params;
 		
 		alert("imageURI: "+imageURI);
@@ -189,6 +232,7 @@ function changeFoto(){
 		ft.upload(imageURI,encodeURI("http://51.254.221.215/foto.php"),win,fail,options)
 	}
 	
+	//En caso de no coger la foto correctamente
 	function onFail(message){
 		alert("error cogiendo foto")
 	}
@@ -196,18 +240,18 @@ function changeFoto(){
 	navigator.camera.getPicture(onSuccess,onFail,options);
 }
 
-//cambia la foto de perfil por una foto recien sacada
+//Cambiar la foto de perfil por una foto recien sacada
 function takeFoto(){
-	//opciones de captura de foto
+	//Opciones de captura de foto
 	var options = {
 			quality: 50,
 			destinationType: Camera.DestinationType.FILE_URI
 	};
 	
-	//en caso de coger la foto correctamente (subirla al servidor)
+	//En caso de coger la foto correctamente (subirla al servidor)
 	function onSuccess(imageURI){
 		var win = function (r){
-			//función en caso de que la subida sea correcta
+			//Función en caso de que la subida sea correcta
 			alert("response: "+r.response);
 			var js = $.parseJSON(r.response);
 			$.each(js,function(key,val){
@@ -293,8 +337,22 @@ function back(){
 }
 
 function toOnlineProfile(elem){
-	alert("en funcion nueva");
 	var name = elem.getAttribute("data-name");
+	$.post("http://51.254.221.215/getprofile.php",{"name":name,},function(data){
+		js = $.parseJSON(data);
+		$.each(js,function(key,val){
+			switch(key){
+			case "Nombre":
+				break;
+			case "Foto":
+				break;
+			case "PuntOnline":
+				break;
+			case "MaxPunt":
+				break;
+			}
+		});
+	});
 	$("#online-name").text("Nombre: "+name);
 	document.location.href  = "#onlineP-page";
 }

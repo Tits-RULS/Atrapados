@@ -130,6 +130,13 @@ function toQuestion(elem){
 	);
 	themeStyle(q);
 	dsub=q;
+	//limpiar los botones
+	$("button[id|='dquestion-button']").each(
+			function(index){
+				$(this).text("");
+				$(this).css("background-color","white");
+			}
+	);
 	//obtener la pregunta
 	$.post("http://51.254.221.215/getquestionbyid.php",{"id":qid},function(data){
 		js = $.parseJSON(data);
@@ -159,7 +166,7 @@ function toQuestion(elem){
 				dcorrect=val;
 				break;
 			}
-		});
+		});	
 		if(error!=1){
 			//inicializar el tiempo
 			$("#dtimer").timer();
@@ -227,4 +234,38 @@ function dresult(elem){
 		alert("erronea");
 		elem.style.backgroundColor = "red";
 	}
+}
+
+function doDuel(elem){
+	var id = elem.getAttribute("data-id");
+	var type = elem.getAttribute("data-type");
+	if(type=='1'){
+		did=id;
+		duelquestions(did);
+		$("#duel-name1").html("<br>"+window.localStorage.getItem("name"));
+		$("#duel-name2").text("");
+	}else{
+		var n1 = elem.getAttribute("data-n1");
+		var n2 = elem.getAttribute("data-n2");
+		did=id;
+		duelquestions(did);
+		$("#duel-name1").html("<br>"+n1);
+		$("#duel-name2").text("<br>"+n2);
+	}
+	//iniciar timer y pasar a la vista de puertas
+	$("input[id|='duelb']").each(
+			function(){
+				$(this).show();
+			}	
+	);
+	$("img[id|='dueli']").each(
+			function(){
+				$(this).hide();
+			}	
+	);
+	dcount = 0;
+	time = 0;
+	document.location.href = "#ddoor-page";
+	$("#duel-time").text(""+time+" sec");
+	
 }

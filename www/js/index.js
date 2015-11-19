@@ -24,6 +24,8 @@ var app = {
     		//función para gestionar el boton de back
     		back();
     		},false);
+    	document.getElementById('down-video').addEventListener('ended',toHistory,false);
+    	document.getElementById('up-video').addEventListener('ended',toHistory,false);
     	$.ajaxSetup({cache:false});
     },
 
