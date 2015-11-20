@@ -231,7 +231,6 @@ function dresult(elem){
 	}
 }
 
-
 function doDuel(elem){
 	var id = elem.getAttribute("data-id");
 	var type = elem.getAttribute("data-type");
@@ -248,7 +247,7 @@ function doDuel(elem){
 		$("#duel-name1").html("<br>"+n1);
 		$("#duel-name2").html("<br>"+n2);
 	}
-	//Iniciar timer y pasar a la vista de puertas
+	//iniciar timer y pasar a la vista de puertas
 	$("input[id|='duelb']").each(
 			function(){
 				$(this).show();

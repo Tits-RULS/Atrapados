@@ -147,7 +147,7 @@
         </style>
     </head>
     <body>
-    	<!--Página de registro de usuario>
+    	<!--Página de registro de usuario-->
 	<div data-role="page" id="login-page" class="menu">
 		Nombre:<br>
 		<input type='text' id='login-name'>
@@ -155,7 +155,7 @@
 		<input type='text' id='login-pass'>
 		<br>
 		<button onclick='login()'>Acceder</button>
-	</div-->
+	</div>
 		
 	<!--Página de selección de modo de juego-->
 	<div data-role="page" id="start-page" class="menu">
