@@ -121,13 +121,6 @@ function toQuestion(elem){
 	//obtener pregunta desde su id
 	var q = $(elem).val();
 	var qid= questions[parseInt(q)];
-	//limipiar los botones
-	$("button[id|='question-button']").each(
-			function(index){
-				$(this).text("");
-				$(this).css("background-color","white");
-			}
-	);
 	themeStyle(q);
 	dsub=q;
 	//limpiar los botones
@@ -250,7 +243,7 @@ function doDuel(elem){
 		did=id;
 		duelquestions(did);
 		$("#duel-name1").html("<br>"+n1);
-		$("#duel-name2").text("<br>"+n2);
+		$("#duel-name2").html("<br>"+n2);
 	}
 	//iniciar timer y pasar a la vista de puertas
 	$("input[id|='duelb']").each(

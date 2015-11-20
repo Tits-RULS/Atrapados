@@ -97,9 +97,8 @@ function toDuel(){
 					table = table + "<td align='center' width='40%' data-id='"+arr[7]+"' data-type='2' data-n1='"+arr[0]+"' data-n2='"+arr[4]+"' onclick='doDuel(this)'><font color='black'>"+arr[2]+"-"+arr[3]+"</font></td>";
 				}else{
 					if(arr[4]==name&&arr[3]==null){
-						table = table + "<td align='center' width='40%' data-id='"+arr[7]+"' data-type='2' data-n1='"+arr[0]+"' data-n2='"+arr[4]+"' onclick='doDuel(this)'><font color='balck'>"+arr[2]+"-"+arr[3]+"</font></td>";
+						table = table + "<td align='center' width='40%' data-id='"+arr[7]+"' data-type='2' data-n1='"+arr[0]+"' data-n2='"+arr[4]+"' onclick='doDuel(this)'><font color='black'>"+arr[2]+"-"+arr[3]+"</font></td>";
 					}else{
-						alert("puntuación");
 						table = table + "<td align='center' width='40%' ><font color='black'>"+arr[2]+"-"+arr[3]+"</font></td>";
 					}
 				}
@@ -153,18 +152,34 @@ function toDuel(){
 function toProfile(){
 	state=3;
 	var name = window.localStorage.getItem('name');
-	$("#profile-name").text(name);
-	if(localStorage.getItem("foto")==null){
-		//si no hay ninguna foto poner la de por defecto
-		$("#profile-img").attr("src","img/comenzar.png");
-	}
-	else{
-		//coger la foto
-		d = new Date();
-		$("#profile-img").attr("src","http://51.254.221.215/uploads/"+name+"?"+d.getTime());
-	}
-	//obtener puntuación
-	document.location.href = "#profile-page";
+	$.post("http://51.254.221.215/getprofile.php",{"name":name,},function(data){
+		js = $.parseJSON(data);
+		$.each(js,function(key,val){
+			switch(key){
+			case "Nombre":
+				$("#profile-name").text(val);
+				break;
+			case "Foto":
+				if(val==null){
+					//si no hay ninguna foto poner la de por defecto
+					$("#profile-img").attr("src","img/comenzar.png");
+				}
+				else{
+					//coger la foto
+					d = new Date();
+					$("#profile-img").attr("src","http://51.254.221.215/uploads/"+name+"?"+d.getTime());
+				}
+				break;
+			case "PuntOnline":
+				$("#profile-versus").text(val);
+				break;
+			case "MaxPunt":
+				$("#profile-max").text(val);
+				break;
+			}
+		});
+		document.location.href  = "#profile-page";
+	});
 }
 
 //Función que cambia la foto de perfil cogiendola del móvil
@@ -343,18 +358,29 @@ function toOnlineProfile(elem){
 		$.each(js,function(key,val){
 			switch(key){
 			case "Nombre":
+				$("#oprofile-name").text(val);
 				break;
 			case "Foto":
+				if(val==null){
+					//si no hay ninguna foto poner la de por defecto
+					$("#oprofile-img").attr("src","img/comenzar.png");
+				}
+				else{
+					//coger la foto
+					d = new Date();
+					$("#oprofile-img").attr("src","http://51.254.221.215/uploads/"+name+"?"+d.getTime());
+				}
 				break;
 			case "PuntOnline":
+				$("#oprofile-versus").text(val);
 				break;
 			case "MaxPunt":
+				$("#oprofile-max").text(val);
 				break;
 			}
 		});
+		document.location.href  = "#onlineP-page";
 	});
-	$("#online-name").text("Nombre: "+name);
-	document.location.href  = "#onlineP-page";
 }
 
 function newDuel(){

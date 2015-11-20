@@ -131,6 +131,17 @@
 			text-align: center bottom;
 
 		}
+		.congrat{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			text-align: center;
+			font-size: 2em;
+			background-image: url("img/diploma.jpg");
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
+		}
         </style>
     </head>
     <body>
@@ -247,10 +258,17 @@
         
         <!--Página del diploma final-->
         <div data-role="page" id="congrat-page">
-        	<h1 id="congrat-name"></h1>
-        	<h2 id="congrat-punt"></h2>
-        	<h2 id="congrat-max"></h2>
-        	<button id="congrat-button" onclick="document.location.href = '#start-page';">Volver</button>
+        	<div class="wrapper">
+        		<div class="congrat">
+        			<br>
+        			<h1 id="congrat-name" style="font-size:8vw"></h1>
+        			<h2 id="congrat-punt" style="font-size:6vw"></h2>
+        			<h2 id="congrat-max" style="font-size:6vw"></h2>
+        		</div>
+        	</div>
+        	<div class="item-wrapper">
+        		<button id="congrat-button" onclick="document.location.href = '#start-page';" style="position: absolute">Volver</button>
+        	</div>
         </div>
         
         <div data-role="page" id="duel-page" class="menu">
@@ -349,11 +367,11 @@
 								</tr>
 						    	<tr>
 									<td>Pnt. Historia: </td>
-									<td id="">0</td>
+									<td id="profile-max">0</td>
 						   		</tr>
 						    	<tr>
 									<td>Pnt. Versus: </td>
-									<td id="">0</td>
+									<td id="profile-versus">0</td>
                     			</tr>
                 			</table>    
 	   					</td>
@@ -371,7 +389,30 @@
         
 	<!--Página de perfil online de un usuario-->
     <div data-role="page" id="onlineP-page">
-		<h1 id="online-name">PERFIL ONLINE</h1>
+		<h1>Online Profile</h1>
+			<table style="width:80%; heigth:100%; margin-left:10%; margin-right:10%">
+            		<tr>
+						<td align="center" width="40%">
+        	   				<img id="oprofile-img" src="img/comenzar.png" width="100%" height="auto" >
+						</td>
+						<td>		
+                			<table style="width: 100%; font-size: 1em">
+								<tr>
+									<td style="width: 30%; height:auto">Nombre: </td>
+									<td id="oprofile-name" style="width: 30%"></td>
+								</tr>
+						    	<tr>
+									<td>Pnt. Historia: </td>
+									<td id="oprofile-max">0</td>
+						   		</tr>
+						    	<tr>
+									<td>Pnt. Versus: </td>
+									<td id="oprofile-versus">0</td>
+                    			</tr>
+                			</table>    
+	   					</td>
+					</tr>
+				</table>
     </div>
     
     <!--Div for video up-->
